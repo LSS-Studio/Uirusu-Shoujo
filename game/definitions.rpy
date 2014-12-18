@@ -277,8 +277,8 @@ init:
     define ai = Character(kind=aids)
     
     # This is the protagonist. Use this character when the protagonist speaks.
-    define pr = Character('player_name', dynamic=True)
-    $ player_name = 'Protag'
+    define pr = Character('name', dynamic=True)
+    $ name = 'Protag'
     
     define si = Character('Sian')
     define bsg = Character('Black Science Guy')

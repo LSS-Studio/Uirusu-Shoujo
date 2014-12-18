@@ -1,26 +1,65 @@
 label actI:
     call prologue
     call actI_title
-    call actI_river
+    call actI_structure
+    plh "end of Act I."
     return
     
 label actI_title:
-    
+    plh "Show act I title card."
     return
 
-label actI_river:
-    plh "The protagonist finds himself at the bank of a river blacker than the depths of space."
-    plh "There is a young girl wielding a scythe standing next to a small boat."
-    plh "She motions for him to get in. He has no choice but to comply."
-    plh "Joki, the girl, begins to row the boat using her scythe, and they set off to the underworld."
-    plh "During the boat trip, the protagonist gets dizzy, and is pulled into the river by Pestilence, who is very impressed with the protagonist's work, and has decided to resurrect the protagonist as a rare male virus, carrying the traits of high survivability, high infectivity, and high mutation rate - but lacking in lethality."
-    plh "He then blacks out in the shadow of Pestilence."
-    plh "When he opens his eyes again, he's on an examining table, surrounded by many of the characters of the Virus World."
-    plh "Perform introductions for a few, probably Ebby, Polio-sensei, and Autism-sama, and visually reveal the others."
-    plh "It is explained that Joki brought him to the institute after he floated to the surface, not knowing what else to do with him."
-    plh "As he regains his senses, the others leave him in the care of Ebby, who apologizes profusely for hurting him, though she is glad to see that he found her again and seems to be intact."
-    plh "She now has Skully, which speaks in a rattly voice noted to be quite similar to the protagonist's own, though it says things he would not say."
-    plh "Protag-kun is given a room, some basic clothing, and a phone that works on the local network, and allowed to \"sleep it off\" for a while."
-    plh "Once he awakes, hungry, he follows his nose to find the cafeteria and begins to meet other characters."
-    # This is where it begins.
-    # From here on out will be scenes and choices which impact the player's relationship with various characters.
+label actI_structure:
+    # Day structure might become more sophisticated in the future.
+    $ day = 0
+label actI_loop:
+    $ day += 1
+    # Calls a label for the current day if it exists, else calls a generic day.
+    if renpy.has_label("actI_day"+str(day)):
+        $renpy.call("actI_day"+str(day))
+    else:
+        call actI_generic_day
+    if day < 14: # Act I continues for about 2 weeks.
+        jump actI_loop
+    return
+    
+#The generic day labels are used when no script for the current day exists. They are place holders.
+label actI_generic_day:
+    call actI_generic_morning
+    call actI_generic_noon
+    call actI_generic_afternoon
+    call actI_generic_evening
+    return
+label actI_generic_morning:
+    plh "Dawn of day [day]."
+    return
+label actI_generic_noon:
+    plh "If weekday go to class. Else freetime."
+    return
+label actI_generic_afternoon:
+    plh "Freetime."
+    return
+label actI_generic_evening:
+    plh "Go to bed."
+    return
+    
+label actI_day1:
+    plh "Wake up on examination table. meet a few major characters."
+    plh "Left in the care of Ebola-chan"
+    call actI_generic_evening
+    return
+label actI_day2:
+    plh "Awaken, hungry. Go to the cafeteria."
+    plh "Meet more characters."
+    plh "The protagonist is free to do what he wants. There will probably be a choice point leading to different scenes now."
+    call actI_generic_evening
+    return
+
+label actI_letters:
+    plh "Tally the scores"
+    plh "Protag receives letters from the girls that like him asking him to attend the dance. If he receives more than one, he must choose only one."
+    plh "If he receives no letters, trigger the fallback route."
+    return
+label actI_futsal:
+    plh "A futsal game happens at the very end of act I."
+    return
