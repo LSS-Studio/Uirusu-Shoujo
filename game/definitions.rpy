@@ -145,114 +145,12 @@ init:
     #==============================================================
     # CHARACTER IMAGES
     #==============================================================
-    
-init -13:
-    if persistent.artstyle is None:
-        $ persistent.artstyle = 'default'
-    
-init -13 python:
-    # Used for declaring images that switch artstyles.
-    # Takes a list of image names.
-    def artstyle_switcher(list=[], bases=[]):
-        artstyle_switcher2(list)
-        for base in bases:
-            artstyle_switcher2(list,base)
-        return
-    def artstyle_switcher2(list=[], base=''):
-        if base:
-            base = " "+base
-        for item in list:
-            artstyle_switcher3(item+base)
-    def artstyle_switcher3(name):
-        #cropped
-        renpy.image(name, DynamicDisplayable(artstyle_dynamic,name=name))
-        #full image
-        renpy.image(name+" full", DynamicDisplayable(artstyle_dynamic,name=name+" full"))
-        #large cropped
-        renpy.image(name+" large", DynamicDisplayable(artstyle_dynamic,name=name+" large"))
-        #large full
-        renpy.image(name+" large full", DynamicDisplayable(artstyle_dynamic,name=name+" large full"))
-        return
-    def artstyle_dynamic(st, at, name=''):
-        if renpy.image_exists(persistent.artstyle+" "+name):
-            return persistent.artstyle+" "+name, None
-        elif renpy.image_exists("default "+name):
-            return "default "+name, None
-        else:
-            return Placeholder('girl'), None
-            
-    # Used for compositing and declaring many images with little effort.
-    # For each item, defines 4 images. Cropped small, cropped large, full small, and full large.
-    def autoComposite(basename='', base='', bases={}, dict={}, wimg=800, himg=1600, xcomp=0, ycomp=0, wcomp=200, hcomp=200, lcrop=1000, scrop=900, lscale=1.0, sscale=0.66):
-        suffix=''
-        #main base
-        autoComposite2(**locals())
-        #additional bases
-        for key in bases:
-            suffix = " "+key
-            base = bases[key]
-            autoComposite2(**locals())
-        return
-    def autoComposite2(basename, base, suffix, dict, wimg, himg, xcomp, ycomp, wcomp, hcomp, lcrop, scrop, lscale, sscale,*args,**kwargs):
-        if basename:
-            # declare baseimage
-            autoComposite3(basename+suffix, base, **locals())
-        for key in dict:
-            # declare composite images
-            if dict[key] and base:
-                src=im.Composite((wimg, himg),(0,0),base,(xcomp,ycomp),dict[key])
-            elif base:
-                src=base
-            elif dict[key]:
-                src=dict[key]
-            autoComposite3(key+suffix, **locals())
-    def autoComposite3(name,src, wimg, lcrop, scrop, lscale, sscale,*args,**kwargs):
-        #cropped
-        renpy.image(name, im.FactorScale(im.Crop(src,(0,0,wimg,scrop)),sscale))
-        #full image
-        renpy.image(name+" full", im.FactorScale(src,sscale))
-        #large cropped
-        renpy.image(name+" large", im.FactorScale(im.Crop(src,(0,0,wimg,lcrop)),lscale))
-        #large full
-        renpy.image(name+" large full", im.FactorScale(src,lscale))
-        return
-    
-    #Some actual image definitions
-#Ebby default
-    autoComposite(
-    bases={'blood':"",'skull':"",'bloodskull':"",},
-    dict={
-    'default ebby normal':"images/sprites/EBOLA/EbbyNormal.png",
-    'default ebby wink':"images/sprites/EBOLA/EbbyWink.png",
-    'default ebby concerned':"images/sprites/EBOLA/EbbyConcerned.png",
-    'default ebby excited':"images/sprites/EBOLA/EbbyExcited.png",
-    'default ebby sad':"images/sprites/EBOLA/EbbySad.png",
-    'default ebby rape':"images/sprites/EBOLA/EbbyRape.png",
-    'default ebby joy':"images/sprites/EBOLA/EbbyJoy.png",
-    'default ebby toastdead':"images/sprites/EBOLA/EbbyToastDead.png",
-    'default ebby toastsad':"images/sprites/EBOLA/EbbyToastSad.png",
-    'default ebby toastjoy':"images/sprites/EBOLA/EbbyToastJoy.png",
-    }, wimg=477, himg=900, 
-    lcrop=900, scrop=900,
-    lscale=1.0, sscale=1.0)
-#Sars default
-    autoComposite(
-    bases={'point':""},
-    dict={
-    'default sars normal':"images/sprites/SARS/SarsNotAmused.png",
-    'default sars notamused':"images/sprites/SARS/SarsNotAmused.png",
-    'default sars concerned':"images/sprites/SARS/SarsConcerned.png",
-    'default sars grin':"images/sprites/SARS/SarsGrin.png",
-    'default sars sad':"images/sprites/SARS/SarsSad.png",
-    'default sars stars':"images/sprites/SARS/SarsStars.png",
-    'default sars angry':"images/sprites/SARS/SarsNotAmused.png",
-    'default sars blush':"images/sprites/SARS/SarsNotAmused.png",
-    }, wimg=525, himg=600, 
-    lcrop=500, scrop=600,
-    lscale=3.0, sscale=1.5)
+
+
 init -11 python:
 #Ebby Switch
-    artstyle_switcher([
+    artstyle_switcher('dread',
+    list=[
     'ebby normal',
     'ebby wink',
     'ebby concerned',
@@ -263,9 +161,10 @@ init -11 python:
     'ebby toastdead',
     'ebby toastsad',
     'ebby toastjoy',
-    ],['blood','skull','bloodskull'])
+    ],bases=['blood','skull','bloodskull'])
 #Sars Switch
-    artstyle_switcher([
+    artstyle_switcher('dread',
+    list=[
     'sars normal',
     'sars notamused',
     'sars concerned',
@@ -274,7 +173,7 @@ init -11 python:
     'sars stars',
     'sars angry',
     'sars blush',
-    ],['point'])
+    ],bases=['point'])
 init:
 
     image mal = Placeholder("girl")
