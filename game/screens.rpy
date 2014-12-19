@@ -515,3 +515,48 @@ init -2:
         selected_hover_color "#cc0"
         insensitive_color "#4448"
 
+##############################################################################
+# Eula screens
+screen eula:
+    window:
+        style "gm_root"
+    frame:
+        style_group "invisible"
+        xmargin 30 ymargin 30
+        xpadding 20 ypadding 20
+        frame:
+            style_group "eula"
+            xmargin 30 ymargin 60
+            xpadding 20 ypadding 10
+            xminimum 1.0 yminimum 1.0
+            viewport:
+                scrollbars "vertical"
+                mousewheel True draggable True
+                text "Eula goes here"
+        text "EULA" font "Wisdom is better.ttf" size 50
+        frame:
+            xmargin 30
+            yalign 1.0
+            textbutton "I Agree" action Return()
+        frame:
+            xmargin 30
+            xalign 1.0 yalign 1.0
+            textbutton "Quit" action Quit(confirm=False) xalign 1.0
+
+screen h_toggle:
+    window:
+        style "gm_root"
+    add "images/menus/yesno/yesno_overlay.png"
+    frame:
+        style_group "invisible"
+        xmargin 0.2 ymargin 0.35
+        xpadding 20 ypadding 20
+        text "This game contains optional sex scenes.\nIf you do not wish to experience this content, please disable it now.\nYou can also disable it at any time from the preferences menu." style_group "centered" yalign 0
+        frame:
+            xalign 0.5 yalign 1.0
+            vbox:
+                text "Sex scenes:" xalign 0.5
+                hbox:
+                    xalign 0.5
+                    textbutton "On" action Return(True)
+                    textbutton "Off" action Return(False)

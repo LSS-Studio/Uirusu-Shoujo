@@ -4,6 +4,7 @@ init:
     #==============================================================
     # BACKGROUNDS
     #==============================================================
+    image bg root = "images/menus/gm_root.png"
     
     image bg black = Solid((0, 0, 0, 255))
     image bg white = Solid((255, 255, 255, 255))
