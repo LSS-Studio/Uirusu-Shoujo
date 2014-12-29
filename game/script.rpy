@@ -5,12 +5,7 @@
 label start:
     stop music
     scene bg black
-    menu:
-        "Demo":
-            jump final
-        "Skeleton":
-            jump actI
-    return
+    jump actI
 
 init:
     if persistent.first is None:

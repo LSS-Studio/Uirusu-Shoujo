@@ -42,18 +42,6 @@ label actI_generic_afternoon:
 label actI_generic_evening:
     plh "Go to bed."
     return
-    
-label actI_day1:
-    plh "Wake up on examination table. meet a few major characters."
-    plh "Left in the care of Ebola-chan"
-    call actI_generic_evening
-    return
-label actI_day2:
-    plh "Awaken, hungry. Go to the cafeteria."
-    plh "Meet more characters."
-    plh "The protagonist is free to do what he wants. There will probably be a choice point leading to different scenes now."
-    call actI_generic_evening
-    return
 
 label actI_letters:
     plh "Tally the scores"

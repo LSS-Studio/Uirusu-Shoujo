@@ -5,24 +5,22 @@ init -13:
 init -13 python:
     # Used for declaring images that switch artstyles.
     # Takes a list of image names.
-    def artstyle_switcher(artist='', list=[], bases=[]):
-        artstyle_switcher2(artist,list)
+    def artstyle_switcher(artist='', prefix='', list=[], bases=[]):
+        artstyle_switcher2(artist,prefix,list)
         for base in bases:
-            artstyle_switcher2(artist,list,base)
+            artstyle_switcher2(artist,prefix,list,base)
         return
-    def artstyle_switcher2(artist='', list=[], base=''):
+    def artstyle_switcher2(artist='', prefix='', list=[], base=''):
+        if prefix: prefix = prefix+" "
         if base: base = " "+base
         for item in list:
-            artstyle_switcher3(item+base, artist)
-    def artstyle_switcher3(name, artist):
-        #cropped
-        renpy.image(name, DynamicDisplayable(artstyle_dynamic,name=name, artist=artist))
-        #full image
-        renpy.image(name+" full", DynamicDisplayable(artstyle_dynamic,name=name+" full", artist=artist))
-        #large cropped
-        renpy.image(name+" large", DynamicDisplayable(artstyle_dynamic,name=name+" large", artist=artist))
-        #large full
-        renpy.image(name+" large full", DynamicDisplayable(artstyle_dynamic,name=name+" large full", artist=artist))
+            for name in[
+            prefix+item+base,
+            prefix+item+base+" full",
+            prefix+item+base+" large",
+            prefix+item+base+" large full"
+            ]:
+                renpy.image(name, DynamicDisplayable(artstyle_dynamic,name=name, artist=artist))
         return
     def artstyle_dynamic(st, at, name='', artist=''):
         if renpy.image_exists(persistent.artstyle+" "+name):
@@ -34,18 +32,22 @@ init -13 python:
             
     # Used for compositing and declaring many images with little effort.
     # For each item, defines 4 images. Cropped small, cropped large, full small, and full large.
-    def autoComposite(basename='', base='', bases={}, dict={}, wimg=800, himg=1600, xcomp=0, ycomp=0, wcomp=200, hcomp=200, lcrop=1000, scrop=900, lscale=1.0, sscale=0.66):
+    def autoComposite(prefix='',basename=None, base='', bases={}, dict={}, wimg=800, himg=1600, xcomp=0, ycomp=0, wcomp=200, hcomp=200, lcrop=1000, scrop=900, lscale=1.0, sscale=0.66):
         suffix=''
+        if prefix:
+            prefix = prefix+" "
         #main base
         autoComposite2(**locals())
         #additional bases
         for key in bases:
-            suffix = " "+key
+            suffix = key
             base = bases[key]
             autoComposite2(**locals())
         return
-    def autoComposite2(basename, base, suffix, dict, wimg, himg, xcomp, ycomp, wcomp, hcomp, lcrop, scrop, lscale, sscale,**extra):
-        if basename:
+    def autoComposite2(prefix ,basename, base, suffix, dict, wimg, himg, xcomp, ycomp, wcomp, hcomp, lcrop, scrop, lscale, sscale,**extra):
+        if basename or basename=='':
+            if basename and suffix:
+                basename = basename+" "
             # declare baseimage
             autoComposite3(basename+suffix, base, **locals())
         for key in dict:
@@ -56,14 +58,15 @@ init -13 python:
                 src=base
             elif dict[key]:
                 src=dict[key]
+            if suffix: suffix = " "+suffix
             autoComposite3(key+suffix, **locals())
-    def autoComposite3(name,src, wimg, lcrop, scrop, lscale, sscale,**extra):
+    def autoComposite3(name, src, prefix, wimg, lcrop, scrop, lscale, sscale,**extra):
         #cropped
-        renpy.image(name, im.FactorScale(im.Crop(src,(0,0,wimg,scrop)),sscale))
+        renpy.image(prefix+name, im.FactorScale(im.Crop(src,(0,0,wimg,scrop)),sscale))
         #full image
-        renpy.image(name+" full", im.FactorScale(src,sscale))
+        renpy.image(prefix+name+" full", im.FactorScale(src,sscale))
         #large cropped
-        renpy.image(name+" large", im.FactorScale(im.Crop(src,(0,0,wimg,lcrop)),lscale))
+        renpy.image(prefix+name+" large", im.FactorScale(im.Crop(src,(0,0,wimg,lcrop)),lscale))
         #large full
-        renpy.image(name+" large full", im.FactorScale(src,lscale))
+        renpy.image(prefix+name+" large full", im.FactorScale(src,lscale))
         return

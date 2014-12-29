@@ -150,76 +150,70 @@ init:
 
 init -11 python:
 #Ebby Switch
-    artstyle_switcher('dread',
-    list=[
-    'ebby normal',
-    'ebby wink',
-    'ebby concerned',
-    'ebby excited',
-    'ebby sad',
-    'ebby rape',
-    'ebby joy',
-    'ebby toastdead',
-    'ebby toastsad',
-    'ebby toastjoy',
-    ],bases=['blood','skull','bloodskull'])
+    artstyle_switcher('dread','ebby',list=[
+    'normal',
+    'wink',
+    'concerned',
+    'excited',
+    'sad',
+    'rape',
+    'joy',
+    'toastdead',
+    'toastsad',
+    'toastjoy',
+    ],bases=['noskull'])
 #Sars Switch
-    artstyle_switcher('dread',
-    list=[
-    'sars normal',
-    'sars notamused',
-    'sars concerned',
-    'sars grin',
-    'sars sad',
-    'sars stars',
-    'sars angry',
-    'sars blush',
+    artstyle_switcher('dread','sars',list=[
+    'normal',
+    'concerned',
+    'grin',
+    'sad',
+    'stars',
+    'angry',
+    'blush',
     ],bases=['point'])
+#Llov Switch
+    artstyle_switcher('dread','llov',list=[
+    'normal',
+    'shifty',
+    'happy',
+    'shock',
+    'cry',
+    'inquisitive',
+    'romance',
+    'kiss',
+    ])
+#AIDS Switch
+    artstyle_switcher('dread','aids',list=[
+    'normal',
+    ])
+#HIV Switch
+    artstyle_switcher('dread','hiv',list=[
+    'normal',
+    ])
+#MALARIA Switch
+    artstyle_switcher('dread','mal',list=[
+    'normal',
+    ])
+#RABIES Switch
+    artstyle_switcher('dread','rab',list=[
+    'normal',
+    ])
+#JOKI Switch
+    artstyle_switcher('dread','joki',list=[
+    'normal',
+    ])
 init:
 
-    image mal = Placeholder("girl")
     image bp = Placeholder("girl")
+    image pol = Placeholder("girl")
+    image atsuo = Placeholder("boy")
+    image herp = Placeholder("girl")
+    image chik = Placeholder("girl") 
 
-    image aids concerned:
-        im.FactorScale("images/sprites/AIDS/AidsConcerned.png",1.8)
-    image aids excited:
-        im.FactorScale("images/sprites/AIDS/AidsExcited.png",1.8)
-    image aids joy:
-        im.FactorScale("images/sprites/AIDS/AidsJoy.png",1.8)
-    image aids normal:
-        im.FactorScale("images/sprites/AIDS/AidsNormal.png",1.8)
-    image aids rape:
-        im.FactorScale("images/sprites/AIDS/AidsRape.png",1.8)
-    image aids sad:
-        im.FactorScale("images/sprites/AIDS/AidsSad.png",1.8)
-
-    image joki angry = "images/sprites/JOKI/JokiAngry.png"
-    image joki evil = "images/sprites/JOKI/JokiEvil.png"
-    image joki joy = "images/sprites/JOKI/JokiJoy.png"
-    image joki normal = "images/sprites/JOKI/JokiNormal.png"
-    image joki sad = "images/sprites/JOKI/JokiSad.png"
-    image joki scared = "images/sprites/JOKI/JokiScared.png"
-    image joki smile = "images/sprites/JOKI/JokiSmile.png"
-    image joki wtf = "images/sprites/JOKI/JokiWTF.png"
-
-    image rab happy:
-        im.FactorScale("images/sprites/RABIES/RabHappy.png",1.8)
-    image rab normal:
-        im.FactorScale("images/sprites/RABIES/RabNormal.png",1.8)
-    image rab sad:
-        im.FactorScale("images/sprites/RABIES/RabSad.png",1.8)
-    image rab shock:
-        im.FactorScale("images/sprites/RABIES/RabShock.png",1.8)
-    image rab unsure:
-        im.FactorScale("images/sprites/RABIES/RabUnsure.png",1.8)
-    image rab violent:
-        im.FactorScale("images/sprites/RABIES/RabViolent.png",1.8)
-    image rab annoyed:
-        im.FactorScale("images/sprites/RABIES/RabAnnoyed.png",1.8)
-
-    image marburg annoyed = "images/sprites/MARBURG/MarburgAnnoyed.png"
-    image marburg normal = "images/sprites/MARBURG/MarburgNormal.png"
-    image marburg rape = "images/sprites/MARBURG/MarburgRape.png"
+    image marb annoyed = "images/sprites/MARBURG/MarburgAnnoyed.png"
+    image marb normal = "images/sprites/MARBURG/MarburgNormal.png"
+    image marb rape = "images/sprites/MARBURG/MarburgRape.png"
 
     image who annoyed = "images/sprites/WHO/WhoAnnoyed.png"
     image who angry = "images/sprites/WHO/WhoAngry.png"
@@ -259,34 +253,46 @@ init:
     # Characters can have dynamic names. Change the variable at any time to change her name.
     define ebby = Character('name_ebby', dynamic=True, image='ebby')
     $ name_ebby = 'Ebola-chan'
-    define vu = Character('Vu-chan', image='vu')
-    define sars = Character('Sars-chan', image='sars')
-    define joki = Character('Joki-kun', image='joki')
-    define mal = Character('Malaria-chan', image='mal')
-    define rab = Character('Rabies-chan', image='rab')
-    define bp = Character('BP-sama', image='bp')
+    define sars = Character('name_sars', dynamic=True, image='sars')
+    $ name_sars = 'Sars-chan'
+    define joki = Character('name_joki', dynamic=True, image='joki')
+    $ name_joki = 'Joki-kun'
+    define mal = Character('name_mal', dynamic=True, image='mal')
+    $ name_mal = 'Malaria-sama'
+    define rab = Character('name_rab', dynamic=True, image='rab')
+    $ name_rab = 'Rabies-chan'
+    define bp = Character('name_bp', dynamic=True, image='bp')
+    $ name_bp = 'Plague-sama'
+    define marb = Character('name_marb', dynamic=True, image='marburg')
+    $ name_marb = 'Marburg-sama'
+    define pol = Character('name_pol', dynamic=True, image='pol')
+    $ name_pol = 'Polio-sensei'
+    define aids = Character('name_aids', dynamic=True, image='aids')
+    $ name_aids = 'Eidzu'
+    define hiv = Character('name_hiv', dynamic=True, image='hiv')
+    $ name_hiv = 'Ecchi-V'
+    define llov = Character('name_llov', dynamic=True, image='llov')
+    $ name_llov = 'Lloviu-tan'
+    define leps = Character('name_leps', dynamic=True, image='leps')
+    $ name_leps = 'Epilepsy-chan'
+    define pest = Character('name_pest', dynamic=True, image='pest')
+    $ name_pest = 'Pestilence'
+    define atsuo = Character('name_atsuo', dynamic=True, image='atsuo')
+    $ name_atsuo = 'Autism-sama'
+    define rhino = Character('name_rhino', dynamic=True, image='rhino')
+    $ name_rhino = 'Rhinovirus-kyun'
+    define chik = Character('name_chik', dynamic=True, image='chik')
+    $ name_chik = 'Chikun-chan'
+    define herp = Character('name_herp', dynamic=True, image='herp')
+    $ name_herp = 'Harper'
+    
     define who = Character('WHO-chan', image='who')
     define zmapp = Character('Zmapp-chan', image='zmapp')
-    define marburg = Character('Marburg-sama', image='marburg')
-    define teach = Character('Teacher')
-    define aids = Character('Eidzu-chan', image='aids')
-    
-    # Possibly deprecated
-    define ec = Character(kind=ebby)
-    define vc = Character(kind=vu)
-    define wc = Character(kind=who)
-    define ai = Character(kind=aids)
+    define vu = Character('Vu-chan', image='vu')
     
     # This is the protagonist. Use this character when the protagonist speaks.
-    define pr = Character('name', dynamic=True)
+    define prot = Character('name', dynamic=True)
     $ name = 'Protag'
-    
-    define si = Character('Sian')
-    define bsg = Character('Black Science Guy')
-    define bn = Character('Bill Nye')
-    define nur = Character('Giant Scary Blob Thing')
-    define zma = Character('Zmapp-chan')
-    define ug = Character('Unknown Girl') #deprecated. Please use dynamic names.
     
     # The narrator is used when no speaker is provided.
     define narrator = Character('', what_color="#dddddd", what_prefix='', what_suffix='')
@@ -295,21 +301,3 @@ init:
     # This is for placeholder text. No placeholder text should remain in the final release.
     define plh = Character('', kind=narrator, what_color="#55aa55", what_prefix='# ', what_suffix='')
     
-    define prin = Character('', kind=narrator) #deprecated. Please use narrator instead
-    define nn = Character('', kind=narrator) #deprecated. Please use narrator instead
-    
-    #================#
-    # Record keeping #
-    #================#
-    
-    $ AidsMeet = 0
-    $ AidsCount = 0
-    $ AidsMetFulfilled = 0
-    $ AidsProprietary  = 0
-    $ AidsInvite = 0
-    $ RabbiesMet = 0
-    $ RabbiesCount = 0
-    $ EbbyBrowniePoints = 0
-    $ RabKnowsILive = 0
-    
-        
