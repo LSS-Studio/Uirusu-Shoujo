@@ -70,3 +70,15 @@ init -13 python:
         #large full
         renpy.image(prefix+name+" large full", im.FactorScale(src,lscale))
         return
+    ### CG switcher
+    # declares a dynamic cg that changes based on current artstyle.
+    def cg_switcher(name='', artist=''):
+        renpy.image(name, DynamicDisplayable(artstyle_dynamic,name=name, artist=artist))
+    ### Scene Switcher
+    # calls a scene depending on current artstyle.
+    def scene_switcher(name='', artist=''):
+        if renpy.has_label(persistent.artstyle+"_"+name):
+            renpy.call(persistent.artstyle+"_"+name)
+        elif renpy.has_label(artist+"_"+name):
+            renpy.call(artist+"_"+name)
+        return
