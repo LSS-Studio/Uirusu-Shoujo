@@ -8,9 +8,7 @@ python early:
     def set_points(name = "", point = 0.0, day = None):
         if day==None: day = globals()["day"] #default is current day
         calendar[day, name] = float(point)
-        
-    def points(name = "", day = None):#alias for ease of writing
-        return get_points(name, day)
+    
     def get_points(name = "", day = None):
         if day==None: day = globals()["day"] #default is current day
         #calculate points
@@ -22,6 +20,7 @@ python early:
                 i = 1 - ((day - d) / float(f)) #need to ensure f is a float, because division.
                 p += calendar[key] * ((abs(i) + i) / 2)
         return p
+    points = get_points #alias for ease of writing
     
     def shift_points(name = "", point = 0.0, day = None): #shorthand for "set_points(name, points(name, day) + point)"
         if day==None: day = globals()["day"] #default is current day
