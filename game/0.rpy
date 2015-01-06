@@ -49,3 +49,24 @@ python early:
     
     renpy.register_statement("points", parse = m_change_parse, execute = m_change_exec)
     
+    def m_day_parse(lex):
+        comm = lex.word()
+        if comm == "end": return (comm, None)
+        val = lex.integer()
+        return (comm, val)
+    
+    def m_day_exec(o):
+        comm, val = o
+        if comm == "end":
+            day += 1
+            return
+        elif comm = "set":
+            day = val
+            return
+        elif comm = "shift":
+            day += val
+            return
+        return
+    
+    renpy.register_statement("day", parse = m_day_parse, execute = m_day_exec)
+    
