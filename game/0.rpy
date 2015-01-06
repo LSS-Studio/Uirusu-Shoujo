@@ -1,8 +1,3 @@
-label initialize_calendar:
-    #Ensures renpy properly tracks the calendar object for saving and rollback.
-    $ calendar = icalendar
-    return
-
 python early:
 #calendar
     # using a single dictionary instead of a list of dictionaries for maximum flexibility
@@ -52,7 +47,7 @@ python early:
     def m_day_parse(lex):
         comm = lex.word()
         if comm == "end": return (comm, None)
-        val = lex.integer()
+        val = lex.simple_expression()
         return (comm, val)
     
     def m_day_exec(o):
@@ -61,12 +56,25 @@ python early:
             day += 1
             return
         elif comm = "set":
-            day = val
+            day = int(eval(val))
             return
         elif comm = "shift":
-            day += val
+            day += int(eval(val))
             return
         return
+        
+    def m_day_lint(o):
+        comm, val = o
+        if not comm in ("end", "set", "shift"):
+            renpy.error("Invalid command passed to statement: 'day " + comm + " " + val "'.")
+        try:
+            eval(val)
+        except:
+            renpy.error("Invalid expression passed to statement: 'day " + comm + " " + val + "'.")
     
-    renpy.register_statement("day", parse = m_day_parse, execute = m_day_exec)
-    
+    renpy.register_statement("day", parse = m_day_parse, execute = m_day_exec, lint = m_day_lint)
+
+label initialize_calendar:
+    #Ensures renpy properly tracks the calendar object for saving and rollback.
+    $ calendar = icalendar
+    return
