@@ -1,4 +1,5 @@
 label actI:
+    call initialize_calendar
     call prologue
     call actI_title
     call actI_structure
@@ -11,7 +12,6 @@ label actI_title:
 
 label actI_structure:
     # Day structure might become more sophisticated in the future.
-    $ day = 0
 label actI_loop:
     $ day += 1
     # Calls a label for the current day if it exists, else calls a generic day.

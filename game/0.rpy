@@ -1,50 +1,46 @@
+label initialize_calendar:
+    #Ensures renpy properly tracks the calendar object for saving and rollback.
+    $ calendar = icalendar
+    return
+
 python early:
-    calendar = list() #calendar[day no.][character name]
-    calendar.append(dict())
+#calendar
+    # using a single dictionary instead of a list of dictionaries for maximum flexibility
+    ## Syntax for calendar keys: "day,name"
+    icalendar = dict()
     day = 0
-    
-    ###############"nextday" statement##################################################
-    
-    def m_nextday_parse(lex):
-        rest = lex.rest()
-        if rest:
-            renpy.error("Arguments given to intransitive statement: 'nextday " + rest + "'.")
-    
-    def m_nextday_exec(o):
-        day += 1
-        calendar.append(dict())
-    
-    def m_nextday_lint(o):
-        pass
-    
-    renpy.register_statement("nextday", parse = m_nextday_parse, execute = m_nextday_exec, lint = m_nextday_lint)
-    
-    ################"change" statement##################################################
-    
+#points
+    def set_points(name="",points=0.0,day=None):
+        if day==None: day = globals()["day"] #default is current day
+        if points==None: points=0
+        if name==None: name=""
+        key = str(day)+","+name
+        # If key doesn't exist, add it.
+        if key not in calendar:
+            calendar[key] = 0.0
+        calendar[key] += float(points)
+        
+    def points(name="",day=None):
+        if day==None: day = globals()["day"] #default is current day
+        #calculate points
+        p = 0.0
+        for d in xrange(day+1):
+            key = str(d)+","+name
+            if key in calendar:
+                f = 365 #points fade completely after this many days
+                i = 1 - ((day - d) / float(f))
+                p += calendar[key] * ((abs(i) + i) / 2)
+        return p
+
     def m_change_parse(lex):
         name = lex.word()
-        point = lex.integer()
+        point = lex.float()
         day = lex.integer()
         return (name, point, day)
     
     def m_change_exec(o):
         name, point, day = o
-        calendar[day][name] = point
+        set_points(name,point,day)
     
-    def m_change_lint(o):
-        name, point, day = o
-        if not (isinstance(name, basestring) or (isinstance(point, (int, long)) and (-100 <= point <= 100)) or (isinstance(day, (int, long)) and day >= 0)):
-            renpy.error("Type mismatch: 'change " + name + " " + point + " " + day + "'.")
-    
-    renpy.register_statement("change", parse = m_change_parse, execute = m_change_exec, lint = m_change_lint)
-    
-    #####################################################################################
-    
-    def points(day, name):
-        p = 0.0
-        dd = day + 1
-        for d in xrange(dd):
-            i = 1 - ((day - d) / 365)
-            p += calendar[d][name] * ((abs(i) + i) / 2)
-        return p / (dd)
+    renpy.register_statement("points", parse = m_change_parse, execute = m_change_exec)
     
