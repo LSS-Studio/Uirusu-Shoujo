@@ -17,4 +17,14 @@ On top of that, there is the `set` command which sets the current date to a spec
 
 The `shift` command is able to increment and decrement the current date by a specified amount. The argument is as with the `set` command likewise a simple Ren'Py expression. If the expression evaluates to a positive number, the current date will be incremented by that number; conversely, if the argument evaluates to a negative number, the current date will likewise be decremented by that amount.
 
-### `
+### `set_points(name = "", point = 0.0, day = None)` ###
+This function is identical to the `points` statement, except it is in the form of a Python function. No return value should be expected from this function.
+
+### `get_points(name = "", day = None)` ###
+This function will return the total amount of accumulated points for a character. In other words, it will return the absolute opinion of a character towards the main character.
+
+### `points = get_points` ###
+The `points()` function is an alias of `get_points()`, and exhibits identical behaviour.
+
+### `shift_points(name = "", point = 0.0, day = None)` ###
+This function is intended to be a shorthand for `set_points(name, points(name, day) + point, day)`. 
