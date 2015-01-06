@@ -12,13 +12,14 @@ label actI_title:
 
 label actI_structure:
     # Day structure might become more sophisticated in the future.
+    day set 1
 label actI_loop:
-    $ day += 1
     # Calls a label for the current day if it exists, else calls a generic day.
     if renpy.has_label("actI_day"+str(day)):
         $renpy.call("actI_day"+str(day))
     else:
         call actI_generic_day
+    day end
     if day < 14: # Act I continues for about 2 weeks.
         jump actI_loop
     return

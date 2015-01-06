@@ -7,37 +7,43 @@ python early:
     
     def set_points(name = "", point = 0.0, day = None):
         if not day: day = globals()["day"] #default is current day
-        if not isinstance(point, float): points = 0.0
-        if not isinstance(name, str): name = ""
-        calendar[day, name] = point
+        calendar[day, name] = float(point)
         
+    def points(name = "", day = None):#alias for ease of writing
+        return get_points(name, day)
     def get_points(name = "", day = None):
-        if day==None: day = globals()["day"] #default is current day
+        if not day: day = globals()["day"] #default is current day
         #calculate points
         p = 0.0
         for d in xrange(day + 1):
             key = (d, name)
             if key in calendar:
                 f = 365 #points fade completely after this many days
-                i = 1 - ((day - d) / f)
+                i = 1 - ((day - d) / float(f)) #need to ensure f is a float, because division.
                 p += calendar[key] * ((abs(i) + i) / 2)
         return p
     
     def shift_points(name = "", point = 0.0, day = None): #shorthand for "set_points(name, points(name, day) + point)"
-        if not day: day = globals()["day"]
-        if not isinstance(point, float): points = 0.0
-        if not isinstance(name, str): name = ""
+        if not day: day = globals()["day"] #default is current day
+        if (day, name) not in calendar:
+            calendar[day, name] = 0.0
         calendar[day, name] += point #not using set_points because optimisation
     
     def m_points_parse(lex):
         name = lex.word()
         point = lex.float()
         day = lex.integer()
-        return (name, point, day)
+        if not point: point = 0.0
+        if not name: name = ""
+        return (str(name), float(point), day)
     
     def m_points_exec(o):
         name, point, day = o
-        calendar[day, name] = point #not using set_points because optimisation
+        if not day: day = globals()["day"] #default is current day
+        day = int(day)
+        if (day, name) not in calendar:
+            calendar[day, name] = 0.0
+        calendar[day, name] += point #not using shift_points because optimisation
     
     renpy.register_statement("points", parse = m_points_parse, execute = m_points_exec)
     
@@ -48,22 +54,25 @@ python early:
         return (comm, val)
     
     def m_day_exec(o):
+        global day
         comm, val = o
         if comm == "end":
             day += 1
             return
-        elif comm = "set":
+        elif comm == "set" and val:
             day = int(eval(val))
             return
-        elif comm = "shift":
+        elif comm == "shift" and val:
             day += int(eval(val))
             return
         return
         
     def m_day_lint(o):
         comm, val = o
+        if not comm:
+            renpy.error("Missing command: 'day'.")
         if not comm in ("end", "set", "shift"):
-            renpy.error("Invalid command passed to statement: 'day " + comm + " " + val "'.")
+            renpy.error("Invalid command passed to statement: 'day " + comm + " " + val + "'.")
         try:
             eval(val)
         except:
