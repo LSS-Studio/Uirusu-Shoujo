@@ -6,13 +6,13 @@ python early:
     day = 0
     
     def set_points(name = "", point = 0.0, day = None):
-        if not day: day = globals()["day"] #default is current day
+        if day==None: day = globals()["day"] #default is current day
         calendar[day, name] = float(point)
         
     def points(name = "", day = None):#alias for ease of writing
         return get_points(name, day)
     def get_points(name = "", day = None):
-        if not day: day = globals()["day"] #default is current day
+        if day==None: day = globals()["day"] #default is current day
         #calculate points
         p = 0.0
         for d in xrange(day + 1):
@@ -24,7 +24,7 @@ python early:
         return p
     
     def shift_points(name = "", point = 0.0, day = None): #shorthand for "set_points(name, points(name, day) + point)"
-        if not day: day = globals()["day"] #default is current day
+        if day==None: day = globals()["day"] #default is current day
         if (day, name) not in calendar:
             calendar[day, name] = 0.0
         calendar[day, name] += point #not using set_points because optimisation
@@ -39,7 +39,7 @@ python early:
     
     def m_points_exec(o):
         name, point, day = o
-        if not day: day = globals()["day"] #default is current day
+        if day==None: day = globals()["day"] #default is current day
         day = int(day)
         if (day, name) not in calendar:
             calendar[day, name] = 0.0
@@ -59,10 +59,10 @@ python early:
         if comm == "end":
             day += 1
             return
-        elif comm == "set" and val:
+        elif comm == "set":
             day = int(eval(val))
             return
-        elif comm == "shift" and val:
+        elif comm == "shift":
             day += int(eval(val))
             return
         return
