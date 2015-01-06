@@ -5,16 +5,13 @@ python early:
     icalendar = dict()
     day = 0
     
-    def newday(): #temporary solution because all writers are offline atm
-        day += 1
-    
     def set_points(name = "", point = 0.0, day = None):
         if not day: day = globals()["day"] #default is current day
         if not isinstance(point, float): points = 0.0
         if not isinstance(name, str): name = ""
         calendar[day, name] = point
         
-    def points(name = "", day = None):
+    def get_points(name = "", day = None):
         if day==None: day = globals()["day"] #default is current day
         #calculate points
         p = 0.0
@@ -32,17 +29,17 @@ python early:
         if not isinstance(name, str): name = ""
         calendar[day, name] += point #not using set_points because optimisation
     
-    def m_change_parse(lex):
+    def m_points_parse(lex):
         name = lex.word()
         point = lex.float()
         day = lex.integer()
         return (name, point, day)
     
-    def m_change_exec(o):
+    def m_points_exec(o):
         name, point, day = o
         calendar[day, name] = point #not using set_points because optimisation
     
-    renpy.register_statement("points", parse = m_change_parse, execute = m_change_exec)
+    renpy.register_statement("points", parse = m_points_parse, execute = m_points_exec)
     
     def m_day_parse(lex):
         comm = lex.word()
