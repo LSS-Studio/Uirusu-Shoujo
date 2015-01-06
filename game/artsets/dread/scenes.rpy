@@ -1,3 +1,9 @@
+#CG
+init -12:
+    image dread prologue_nets = "artsets/dread/scenes/prologue/nets.png"
+    image dread prologue_emma_sad = "artsets/dread/scenes/prologue/emma sad.png"
+    
+#SCENES
 init:
     image dread_tuonen_bg = "artsets/dread/scenes/tuonen/tuonen bg.png"
     image dread_tuonen_waves1 = "artsets/dread/scenes/tuonen/tuonen waves 1.png"

@@ -291,6 +291,8 @@ init:
     $ name_chik = 'Chikun-chan'
     define herp = Character('name_herp', dynamic=True, image='herp')
     $ name_herp = 'Harper'
+    define emma = Character('name_emma', dynamic=True, image='emma')
+    $ name_emma = 'Emma'
     
     define who = Character('WHO-chan', image='who')
     define zmapp = Character('Zmapp-chan', image='zmapp')
