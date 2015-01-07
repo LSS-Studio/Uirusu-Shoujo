@@ -27,4 +27,4 @@ This function will return the total amount of accumulated points for a character
 The `points()` function is an alias of `get_points()`, and exhibits identical behaviour.
 
 ### `shift_points(name = "", point = 0.0, day = None)` ###
-This function is intended to be a shorthand for `set_points(name, points(name, day) + point, day)`. 
+This function is intended to be a shorthand for `set_points(name, get_points(name, day) + point, day)`. 
