@@ -15,10 +15,7 @@ init -13 python:
         if base: base = " "+base
         for item in list:
             for name in[
-            prefix+item+base,
-            prefix+item+base+" full",
-            prefix+item+base+" large",
-            prefix+item+base+" large full"
+            prefix+item+base
             ]:
                 renpy.image(name, DynamicDisplayable(artstyle_dynamic,name=name, artist=artist))
         return
@@ -61,14 +58,7 @@ init -13 python:
             if suffix: suffix = " "+suffix
             autoComposite3(key+suffix, **locals())
     def autoComposite3(name, src, prefix, wimg, lcrop, scrop, lscale, sscale,**extra):
-        #cropped
-        renpy.image(prefix+name, im.FactorScale(im.Crop(src,(0,0,wimg,scrop)),sscale))
-        #full image
-        renpy.image(prefix+name+" full", im.FactorScale(src,sscale))
-        #large cropped
-        renpy.image(prefix+name+" large", im.FactorScale(im.Crop(src,(0,0,wimg,lcrop)),lscale))
-        #large full
-        renpy.image(prefix+name+" large full", im.FactorScale(src,lscale))
+        renpy.image(prefix+name, Transform(src,zoom=sscale))
         return
     ### CG switcher
     # declares a dynamic cg that changes based on current artstyle.

@@ -58,6 +58,8 @@ init -12 python:
     dict={
     'normal':"",
     'shifty':"artsets/dread/LLOV/shifty.png",
+    'confused':"artsets/dread/LLOV/confused.png",
+    'flustered':"artsets/dread/LLOV/flustered.png",
     }, wimg=755, himg=1577, 
     xcomp=214, ycomp=132, wcomp=253, hcomp=275,
     lcrop=980, scrop=1070)
@@ -65,7 +67,7 @@ init -12 python:
     autoComposite('dread llov',
     base="artsets/dread/LLOV/normal2.png",
     dict={
-    'happy':"",
+    'happy':"artsets/dread/LLOV/happy.png",
     }, wimg=755, himg=1577, 
     xcomp=214, ycomp=132, wcomp=253, hcomp=275,
     lcrop=980, scrop=1070)
@@ -88,7 +90,10 @@ init -12 python:
     
     autoComposite('dread llov',
     basename='kiss', base="artsets/dread/LLOV/kiss.png",
-    wimg=656, himg=1551,
+    dict={
+    'devilish':"artsets/dread/LLOV/devilish.png",
+    }, wimg=656, himg=1551,
+    xcomp=185, ycomp=95, wcomp=265, hcomp=308,
     lcrop=980, scrop=1070)
 #HIV dread
     autoComposite('dread hiv',

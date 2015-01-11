@@ -12,8 +12,9 @@ init:
     #==============================================================
     image bg root = "images/menus/gm_root.png"
     
-    image bg black = Solid((0, 0, 0, 255))
-    image bg white = Solid((255, 255, 255, 255))
+    image bg prot_room = "images/backgrounds/xeb/dorm_room.jpg"
+    
+    image white = Solid((255, 255, 255, 255))
     
     image bg lab = "images/placeholder/lab.jpg"
     image bg river = "images/placeholder/river.jpg"
@@ -188,6 +189,9 @@ init -11 python:
     'inquisitive',
     'romance',
     'kiss',
+    'confused',
+    'devilish',
+    'flustered',
     ])
 #AIDS Switch
     artstyle_switcher('dread','aids',list=[
@@ -216,6 +220,10 @@ init:
     image atsuo = Placeholder("boy")
     image herp = Placeholder("girl")
     image chik = Placeholder("girl") 
+    
+    image emma = Placeholder("girl") 
+    image mib1 = Placeholder("boy")
+    image mib2 = Placeholder("boy")
 
     image marb annoyed = "images/sprites/MARBURG/MarburgAnnoyed.png"
     image marb normal = "images/sprites/MARBURG/MarburgNormal.png"
@@ -297,6 +305,9 @@ init:
     define who = Character('WHO-chan', image='who')
     define zmapp = Character('Zmapp-chan', image='zmapp')
     define vu = Character('Vu-chan', image='vu')
+    
+    define mib1 = Character('Man in Black', image='mib1')
+    define mib2 = Character('Other Man in Black', image='mib2')
     
     # This is the protagonist. Use this character when the protagonist speaks.
     define prot = Character('name', dynamic=True)
