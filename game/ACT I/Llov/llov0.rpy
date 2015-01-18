@@ -1,3 +1,9 @@
+init:
+    transform llov_shake:
+        ease 0.25 xpos -0.02
+        ease 0.5 xpos 0.02
+        ease 0.25 xpos 0.0
+
 label llov_morning1:
     $ name_llov = "Little Girl"
     scene black
@@ -23,10 +29,7 @@ label llov_morning1:
     show llov:
         ease 0.5 yanchor 0.6 xalign 0.45 zoom 1.5
     llov "Ebby? Wake up!"
-    show layer master:
-        ease 0.25 xpos -0.02
-        ease 0.5 xpos 0.02
-        ease 0.25 xpos 0.0
+    show layer master at llov_shake
     "She attempts to shake me awake"
     show llov devilish:
         ease 0.5 zoom 1.0 yanchor 0.9 xalign .55

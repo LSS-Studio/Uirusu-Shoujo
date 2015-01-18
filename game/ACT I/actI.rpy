@@ -19,6 +19,7 @@ label actI_loop:
         $renpy.call("actI_day"+str(day))
     else:
         call actI_generic_day
+    scene black with dissolve
     day end
     if day < 14: # Act I continues for about 2 weeks.
         jump actI_loop
